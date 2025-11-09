@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>App de Tareas con Cookies, LocalStorage e IndexedDB</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .oscuro { background: #222; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Aplicación de Tareas</h1>
+
+  <!-- Preferencia guardada en COOKIES -->
+  <h3>Idioma</h3>
+  <select id="idioma" onchange="cambiarIdioma()">
+    <option value="es">Español</option>
+    <option value="en">English</option>
+  </select>
+
+  <!-- Preferencia guardada en LOCALSTORAGE -->
+  <h3>Tema</h3>
+  <button onclick="cambiarTema()">Cambiar tema</button>
+
+  <!-- Lista de tareas guardada en INDEXEDDB -->
+  <h3>Lista de Tareas</h3>
+  <input id="tarea" type="text" placeholder="Nueva tarea">
+  <button onclick="agregarTarea()">Añadir</button>
+  <ul id="lista"></ul>
+
+  <script>
+    /* ----------------- COOKIES (Idioma) ----------------- */
+    function setCookie(nombre, valor, dias) {
+      let d = new Date();
+      d.setTime(d.getTime() + (dias*24*60*60*1000));
+      document.cookie = nombre + "=" + valor + "; expires=" + d.toUTCString() + "; path=/";
+    }
+    function getCookie(nombre) {
+      let cookies = document.cookie.split(";").map(c => c.trim());
+      for (let c of cookies) {
+        if (c.startsWith(nombre + "=")) {
+          return c.split("=")[1];
+        }
+      }
+      return "";
+    }
+    function cambiarIdioma() {
+      let idioma = document.getElementById("idioma").value;
+      setCookie("idioma", idioma, 7);
+      alert("Idioma guardado en cookies: " + idioma);
+    }
+
+    /* ----------------- LOCALSTORAGE (Tema) ----------------- */
+    function cambiarTema() {
+      let body = document.body;
+      body.classList.toggle("oscuro");
+      localStorage.setItem("tema", body.classList.contains("oscuro") ? "oscuro" : "claro");
+    }
+
+    function aplicarTema() {
+      let tema = localStorage.getItem("tema");
+      if (tema === "oscuro") {
+        document.body.classList.add("oscuro");
+      }
+    }
+
+    /* ----------------- INDEXEDDB (Tareas) ----------------- */
+    let db;
+    let request = indexedDB.open("TareasDB", 1);
+    request.onupgradeneeded = function(event) {
+      db = event.target.result;
+      db.createObjectStore("tareas", { keyPath: "id", autoIncrement: true });
+    };
+    request.onsuccess = function(event) {
+      db = event.target.result;
+      renderTareas();
+    };
+
+    function agregarTarea() {
+      let tarea = document.getElementById("tarea").value;
+      if (!tarea) return;
+      let tx = db.transaction("tareas", "readwrite");
+      let store = tx.objectStore("tareas");
+      store.add({ texto: tarea });
+      tx.oncomplete = () => renderTareas();
+      document.getElementById("tarea").value = "";
+    }
+
+    function renderTareas() {
+      let lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      let tx = db.transaction("tareas", "readonly");
+      let store = tx.objectStore("tareas");
+      store.openCursor().onsuccess = function(event) {
+        let cursor = event.target.result;
+        if (cursor) {
+          let li = document.createElement("li");
+          li.textContent = cursor.value.texto;
+          lista.appendChild(li);
+          cursor.continue();
+        }
+      };
+    }
+
+    /* ----------------- INICIALIZACIÓN ----------------- */
+    window.onload = function() {
+      // Recuperar idioma de cookies
+      let idioma = getCookie("idioma");
+      if (idioma) document.getElementById("idioma").value = idioma;
+
+      // Aplicar tema de LocalStorage
+      aplicarTema();
+    }
+  </script>
+</body>
+</html>

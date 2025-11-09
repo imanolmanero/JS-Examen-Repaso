@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista con LocalStorage</title>
+</head>
+<body>
+  <h2>Lista de tareas (LocalStorage)</h2>
+  <input id="tarea" type="text" placeholder="Escribe una tarea">
+  <button onclick="agregarTarea()">Añadir</button>
+  <ul id="lista"></ul>
+
+  <script>
+    function getTareas() {
+      return JSON.parse(localStorage.getItem("tareas")) || [];
+    }
+
+    function setTareas(tareas) {
+      localStorage.setItem("tareas", JSON.stringify(tareas));
+    }
+
+    function render() {
+      let tareas = getTareas();
+      let lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      tareas.forEach(t => {
+        let li = document.createElement("li");
+        li.textContent = t;
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarTarea() {
+      let tarea = document.getElementById("tarea").value;
+      let tareas = getTareas();
+      tareas.push(tarea);
+      setTareas(tareas);
+      render();
+      document.getElementById("tarea").value = "";
+    }
+
+    render();
+  </script>
+</body>
+</html>

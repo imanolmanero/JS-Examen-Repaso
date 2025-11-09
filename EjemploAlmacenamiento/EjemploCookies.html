@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista con Cookies</title>
+</head>
+<body>
+  <h2>Lista de tareas (Cookies)</h2>
+  <input id="tarea" type="text" placeholder="Escribe una tarea">
+  <button id="annadir">Añadir</button>
+  <ul id="lista"></ul>
+
+  <script>
+    // Pedir permiso antes de usar cookies
+    if (!confirm("¿Aceptas que usemos cookies para guardar tus tareas?")) 
+    {
+      alert("No se guardarán las tareas en cookies. Fin del programa");
+      document.getElementById("annadir").removeEventListener("click",agregarTarea)
+    }
+    else
+    {
+      document.getElementById("annadir").addEventListener("click",agregarTarea)
+      render();
+    }
+
+    function getCookies() {
+      // Lee las cookies
+      let cookies = document.cookie.split(";").map(c => c.trim());
+      /*
+      split(";") → divide ese string en un array, separando cada cookie.
+      map(c => c.trim()) → elimina espacios extra.
+      Resultado:
+        ["idioma=es", "tema=oscuro", "tareas=%5B%22Comprar%20pan%22,%22Estudiar%22%5D"]
+      */
+      let tareas = [];
+      cookies.forEach(c => {
+        // Busca la que empieze con tareas=
+        if (c.startsWith("tareas=")) {
+          // Obtiene el valor encontrado en caracteres normales.
+          tareas = JSON.parse(decodeURIComponent(c.split("=")[1]));
+        }
+      });
+      return tareas;
+    }
+
+    function setCookies(tareas) {
+      document.cookie = "tareas=" + encodeURIComponent(JSON.stringify(tareas)) + "; path=/; max-age=86400"; // 1 día
+    }
+
+    function render() {
+      // Muestra en las lista las cookies guardadas
+      let tareas = getCookies();
+      let lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      tareas.forEach(t => {
+        let li = document.createElement("li");
+        li.textContent = t;
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarTarea() {
+        let tarea = document.getElementById("tarea").value;
+        let tareas = getCookies();
+        tareas.push(tarea);
+        setCookies(tareas);
+        render();
+        document.getElementById("tarea").value = "";
+    }
+
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista con IndexedDB</title>
+</head>
+<body>
+  <h2>Lista de tareas (IndexedDB)</h2>
+  <input id="tarea" type="text" placeholder="Escribe una tarea">
+  <button onclick="agregarTarea()">Añadir</button>
+  <ul id="lista"></ul>
+
+  <script>
+    let db;
+    let request = indexedDB.open("TareasDB", 1);
+
+    // Se ejecutará la primera vez
+    request.onupgradeneeded = function(event) {
+      // db = request.result;
+      db = event.target.result;
+      db.createObjectStore("tareas", { keyPath: "id", autoIncrement: true });
+    };
+
+    // Se ejecutará cuando la base de datos ya exista
+    request.onsuccess = function(event) {
+      db = event.target.result;
+      render();
+    };
+
+    function agregarTarea() {
+      let tarea = document.getElementById("tarea").value;
+      // Inicia transacción de lectura - escritura
+      let tx = db.transaction("tareas", "readwrite");
+      let store = tx.objectStore("tareas");
+      // Inserta
+      store.add({ texto: tarea });
+      tx.oncomplete = () => render();
+      document.getElementById("tarea").value = "";
+    }
+
+    function render() {
+      let lista = document.getElementById("lista");
+      lista.innerHTML = "";
+      // Inicia transacción de lectura
+      let tx = db.transaction("tareas", "readonly");
+      let store = tx.objectStore("tareas");
+      store.openCursor().onsuccess = function(event) {
+        let cursor = event.target.result;
+        if (cursor) {
+          let li = document.createElement("li");
+          li.textContent = cursor.value.texto;
+          lista.appendChild(li);
+          cursor.continue();
+        }
+      };
+    }
+  </script>
+</body>
+</html>
