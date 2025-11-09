@@ -80,7 +80,7 @@ function crearLista() {
         productoLista.textContent = producto;             // Metemos texto
         productoLista.addEventListener("dblclick", eliminarUnProducto); // Doble click → eliminar
 
-        listaProductosDOM.appendChild(productoLista);
+        listaProductosDOM.appendChild(productoLista); //appendChild() lo inserta al final del <ul>.
     });
 }
 
