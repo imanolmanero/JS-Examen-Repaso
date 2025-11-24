@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tareas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    form {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .radio-group {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .radio-group label {
+      display: inline;
+      font-weight: normal;
+    }
+    
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    button:first-of-type {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    button:first-of-type:hover {
+      background-color: #45a049;
+    }
+    
+    button:nth-of-type(2) {
+      background-color: #ff9800;
+      color: white;
+    }
+    
+    button:nth-of-type(3) {
+      background-color: #f44336;
+      color: white;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #2196F3;
+      color: white;
+      font-weight: bold;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .prioridad-alta {
+      color: #f44336;
+      font-weight: bold;
+    }
+    
+    .prioridad-media {
+      color: #ff9800;
+      font-weight: bold;
+    }
+    
+    .prioridad-baja {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 Gestor de Tareas</h1>
+
+  <!-- FORMULARIO -->
+  <form id="formularioTareas">
+    
+    <div class="form-group">
+      <label>Título de la tarea:</label>
+      <input type="text" id="titulo" placeholder="Ej: Estudiar JavaScript">
+    </div>
+    
+    <div class="form-group">
+      <label>Prioridad:</label>
+      <div class="radio-group">
+        <input type="radio" name="prioridad" value="Alta" id="alta">
+        <label for="alta">Alta</label>
+        
+        <input type="radio" name="prioridad" value="Media" id="media">
+        <label for="media">Media</label>
+        
+        <input type="radio" name="prioridad" value="Baja" id="baja">
+        <label for="baja">Baja</label>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Categoría:</label>
+      <select id="categoria">
+        <option value="">Selecciona una categoría</option>
+        <option value="Trabajo">Trabajo</option>
+        <option value="Personal">Personal</option>
+        <option value="Estudio">Estudio</option>
+        <option value="Hogar">Hogar</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label>Fecha límite:</label>
+      <input type="date" id="fecha">
+    </div>
+    
+    <div>
+      <button type="button" onclick="agregar()">Agregar Tarea</button>
+      <button type="button" onclick="limpiar()">Limpiar Formulario</button>
+      <button type="button" onclick="borrarTodo()">Borrar Todas las Tareas</button>
+    </div>
+    
+  </form>
+
+  <!-- TABLA -->
+  <h2>Tareas Pendientes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Prioridad</th>
+        <th>Categoría</th>
+        <th>Fecha Límite</th>
+      </tr>
+    </thead>
+    <tbody id="tablaTareas">
+      <!-- Aquí se añaden las tareas dinámicamente -->
+    </tbody>
+  </table>
+
+  <script src="tareas.js"></script>
+
+</body>
+</html>

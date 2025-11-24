@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario con LocalStorage</title>
+  <style>
+    /* Estilos básicos para que se vea presentable */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    form {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    input, select {
+      margin: 5px;
+      padding: 5px;
+    }
+    
+    button {
+      margin: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Registro de Personas</h1>
+
+  <!-- FORMULARIO -->
+  <form id="miFormulario">
+    <div>
+      <label>Nombre:</label>
+      <input type="text" id="nombre" placeholder="Escribe tu nombre">
+    </div>
+    
+    <div>
+      <label>Edad:</label>
+      <input type="number" id="edad" placeholder="Escribe tu edad">
+    </div>
+    
+    <div>
+      <label>Tipo:</label>
+      <input type="radio" name="tipo" value="Estudiante" id="estudiante">
+      <label for="estudiante">Estudiante</label>
+      
+      <input type="radio" name="tipo" value="Profesor" id="profesor">
+      <label for="profesor">Profesor</label>
+    </div>
+    
+    <div>
+      <label>Día de la semana:</label>
+      <select id="dia">
+        <option value="">Selecciona un día</option>
+        <option value="Lunes">Lunes</option>
+        <option value="Martes">Martes</option>
+        <option value="Miércoles">Miércoles</option>
+        <option value="Jueves">Jueves</option>
+        <option value="Viernes">Viernes</option>
+      </select>
+    </div>
+    
+    <div>
+      <button type="button" onclick="guardar()">Guardar</button>
+      <button type="button" onclick="limpiar()">Limpiar</button>
+    </div>
+  </form>
+
+  <!-- TABLA -->
+  <h2>Personas Registradas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Tipo</th>
+        <th>Día</th>
+      </tr>
+    </thead>
+    <tbody id="tablaBody">
+      <!-- Aquí se añaden dinámicamente las filas -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

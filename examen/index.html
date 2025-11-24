@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Formulario JS</title>
+
+
+</head>
+<body>
+
+<h2>Formulario de Registro</h2>
+
+<form id="myForm">
+    <label>Nombre: <input type="text" id="nombre" required></label><br>
+    <label>Edad: <input type="number" id="edad" required></label><br>
+
+    <label>Tipo:</label>
+    <label><input type="radio" name="tipo" value="Estudiante" required> Estudiante</label>
+    <label><input type="radio" name="tipo" value="Profesor" required> Profesor</label><br>
+
+    <label>Día de la semana:
+        <select id="dia" required>
+            <option value="">--Seleccione--</option>
+            <option>Lunes</option>
+            <option>Martes</option>
+            <option>Miércoles</option>
+            <option>Jueves</option>
+            <option>Viernes</option>
+        </select>
+    </label><br><br>
+
+    <button type="button" id="guardarBtn">Guardar</button>
+    <button type="button" id="limpiarBtn">Limpiar</button>
+    <button type="button" id="enviarBtn">Enviar al servidor</button>
+</form>
+
+<h3>Datos Ingresados</h3>
+<table id="tabla">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Tipo</th>
+            <th>Día</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
