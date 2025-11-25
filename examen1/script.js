@@ -83,4 +83,5 @@ function limpiarFormulario(){
 
 function limpiar(){
     localStorage.clear();
+    location.reload();
 }
