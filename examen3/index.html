@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Productos</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+    form {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 5px;
+    }
+    input, select {
+      margin: 5px;
+      padding: 5px;
+    }
+    button {
+      padding: 8px 12px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #007bff;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Registro de Productos</h1>
+
+  <!-- FORMULARIO -->
+  <form id="formProducto">
+
+    <div>
+      <label>Nombre:</label>
+      <input type="text" id="nombre" placeholder="Nombre del producto">
+    </div>
+
+    <div>
+      <label>Precio (€):</label>
+      <input type="number" id="precio" placeholder="Precio">
+    </div>
+
+    <div>
+      <label>Categoría:</label>
+      <select id="categoria">
+        <option value="">Seleccione una categoría</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Hogar">Hogar</option>
+        <option value="Ropa">Ropa</option>
+        <option value="Alimentos">Alimentos</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Disponible:</label>
+
+      <input type="radio" name="disp" value="Sí" id="disp-si">
+      <label for="disp-si">Sí</label>
+
+      <input type="radio" name="disp" value="No" id="disp-no">
+      <label for="disp-no">No</label>
+    </div>
+
+    <button type="button" onclick="añadirProducto()">Añadir</button>
+    <button type="button" onclick="limpiar()">Limpiar</button>
+
+  </form>
+
+  <!-- TABLA -->
+  <h2>Listado de Productos</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Categoría</th>
+        <th>Disponible</th>
+      </tr>
+    </thead>
+
+    <tbody id="tbodyProductos">
+      <!-- Aquí se añaden las filas con JS -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

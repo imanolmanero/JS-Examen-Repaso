@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de la Compra</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f0f8ff;
+    }
+    
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    
+    .contenedor {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    
+    #btnAnadir {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    #btnAnadir:hover {
+      background-color: #45a049;
+    }
+    
+    #btnResetear {
+      background-color: #f44336;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    #btnResetear:hover {
+      background-color: #da190b;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    li {
+      padding: 15px;
+      margin: 8px 0;
+      background-color: #f9f9f9;
+      border-left: 4px solid #4CAF50;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+    
+    li:hover {
+      background-color: #e8e8e8;
+      transform: translateX(5px);
+    }
+    
+    .editando {
+      background-color: #ffebee !important;
+      border-left-color: #f44336 !important;
+      color: #c62828;
+      font-weight: bold;
+    }
+    
+    .instrucciones {
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .instrucciones strong {
+      color: #1976d2;
+    }
+    
+    #listaProductos {
+      min-height: 50px;
+    }
+    
+    .vacia {
+      text-align: center;
+      color: #999;
+      padding: 30px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor">
+    <h1>🛒 Lista de la Compra</h1>
+    
+    <div class="instrucciones">
+      <strong>📌 Instrucciones:</strong><br>
+      • <strong>Click simple:</strong> Editar producto (se pone rojo)<br>
+      • <strong>Doble click:</strong> Eliminar producto<br>
+      • <strong>Resetear:</strong> Borra toda la lista
+    </div>
+    
+    <div class="input-group">
+      <input type="text" id="inputProducto" placeholder="Escribe un producto...">
+      <button id="btnAnadir" onclick="anadirProducto()">Añadir</button>
+    </div>
+    
+    <ul id="listaProductos">
+      <!-- Aquí se añaden los productos -->
+    </ul>
+    
+    <button id="btnResetear" onclick="resetearLista()">Resetear Lista</button>
+  </div>
+
+  <script src="compra.js"></script>
+
+</body>
+</html>
